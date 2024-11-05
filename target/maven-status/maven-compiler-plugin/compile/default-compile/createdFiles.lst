@@ -3,6 +3,8 @@ com/golvia_waitlist/demo/service/impl/EmailServiceImpl.class
 com/golvia_waitlist/demo/entity/Waitlist$WaitlistBuilder.class
 com/golvia_waitlist/demo/DemoApplication.class
 com/golvia_waitlist/demo/service/impl/WaitlistServiceImpl.class
+com/golvia_waitlist/demo/configs/CorsConfig.class
+com/golvia_waitlist/demo/configs/CorsConfig$1.class
 com/golvia_waitlist/demo/enumms/ProfileTypes.class
 com/golvia_waitlist/demo/controller/WaitlistController.class
 com/golvia_waitlist/demo/response/ResponseDto$ResponseDtoBuilder.class
