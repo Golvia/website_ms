@@ -1,0 +1,9 @@
+/Applications/java_projects/Golvia-waitlist/src/main/java/com/golvia_waitlist/demo/DemoApplication.java
+/Applications/java_projects/Golvia-waitlist/src/main/java/com/golvia_waitlist/demo/controller/WaitlistController.java
+/Applications/java_projects/Golvia-waitlist/src/main/java/com/golvia_waitlist/demo/entity/Waitlist.java
+/Applications/java_projects/Golvia-waitlist/src/main/java/com/golvia_waitlist/demo/enumms/ProfileTypes.java
+/Applications/java_projects/Golvia-waitlist/src/main/java/com/golvia_waitlist/demo/repository/WaitlistRepository.java
+/Applications/java_projects/Golvia-waitlist/src/main/java/com/golvia_waitlist/demo/service/EmailService.java
+/Applications/java_projects/Golvia-waitlist/src/main/java/com/golvia_waitlist/demo/service/WaitlistService.java
+/Applications/java_projects/Golvia-waitlist/src/main/java/com/golvia_waitlist/demo/service/impl/EmailServiceImpl.java
+/Applications/java_projects/Golvia-waitlist/src/main/java/com/golvia_waitlist/demo/service/impl/WaitlistServiceImpl.java
