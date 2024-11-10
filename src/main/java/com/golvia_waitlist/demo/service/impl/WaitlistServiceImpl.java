@@ -1,6 +1,5 @@
 package com.golvia_waitlist.demo.service.impl;
 
-import com.golvia_waitlist.demo.response.ResponseDto;
 import com.golvia_waitlist.demo.entity.Waitlist;
 import com.golvia_waitlist.demo.repository.WaitlistRepository;
 import com.golvia_waitlist.demo.service.EmailService;
@@ -8,82 +7,46 @@ import com.golvia_waitlist.demo.service.WaitlistService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
-import java.util.Collections;
+import java.util.List;
 import java.util.regex.Pattern;
+
 
 @Service
 @RequiredArgsConstructor
 public class WaitlistServiceImpl implements WaitlistService {
 
+
     private final WaitlistRepository waitlistRepository;
     private final EmailService emailService;
 
     @Override
-    public ResponseDto<Waitlist> waitlist(Waitlist waitlist) {
-        // Validate fields
+    public String waitlist(Waitlist waitlist) {
+        // Validate fields are not null
         if (waitlist.getFirstName() == null || waitlist.getFirstName().isEmpty()) {
-            return ResponseDto.<Waitlist>builder()
-                    .status("failure")
-                    .message("Validation Error")
-                    .data(null)
-                    .timestamp(LocalDateTime.now())
-                    .errors(Collections.singletonList("First name cannot be null or empty."))
-                    .build();
+            return "First name cannot be null or empty.";
         }
         if (waitlist.getLastName() == null || waitlist.getLastName().isEmpty()) {
-            return ResponseDto.<Waitlist>builder()
-                    .status("failure")
-                    .message("Validation Error")
-                    .data(null)
-                    .timestamp(LocalDateTime.now())
-                    .errors(Collections.singletonList("Last name cannot be null or empty."))
-                    .build();
+            return "Last name cannot be null or empty.";
         }
         if (waitlist.getEmailAddress() == null || waitlist.getEmailAddress().isEmpty()) {
-            return ResponseDto.<Waitlist>builder()
-                    .status("failure")
-                    .message("Validation Error")
-                    .data(null)
-                    .timestamp(LocalDateTime.now())
-                    .errors(Collections.singletonList("Email address cannot be null or empty."))
-                    .build();
+            return "Email address cannot be null or empty.";
         }
         if (waitlist.getProfileType() == null) {
-            return ResponseDto.<Waitlist>builder()
-                    .status("failure")
-                    .message("Validation Error")
-                    .data(null)
-                    .timestamp(LocalDateTime.now())
-                    .errors(Collections.singletonList("Profile type cannot be null."))
-                    .build();
+            return "Profile type cannot be null.";
         }
 
         // Validate email format
         String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$";
         Pattern pattern = Pattern.compile(emailRegex);
         if (!pattern.matcher(waitlist.getEmailAddress()).matches()) {
-            return ResponseDto.<Waitlist>builder()
-                    .status("failure")
-                    .message("Invalid Email Format")
-                    .data(null)
-                    .timestamp(LocalDateTime.now())
-                    .errors(Collections.singletonList("Invalid email address format."))
-                    .build();
+            return "Invalid email address format.";
         }
-
         // Check if email already exists in the database
         if (waitlistRepository.existsByEmailAddress(waitlist.getEmailAddress())) {
-            return ResponseDto.<Waitlist>builder()
-                    .status("failure")
-                    .message("Duplicate Entry")
-                    .data(null)
-                    .timestamp(LocalDateTime.now())
-                    .errors(Collections.singletonList("Email address already exists in the waitlist."))
-                    .build();
+            return "Email address already exists in the waitlist.";
         }
 
-        // Save to repository
+        // Save to repository if all validations pass
         waitlistRepository.save(waitlist);
 
         // Send a confirmation email
@@ -93,12 +56,7 @@ public class WaitlistServiceImpl implements WaitlistService {
                 + "Best regards,\nYour Company";
         emailService.sendEmail(waitlist.getEmailAddress(), subject, body);
 
-        return ResponseDto.<Waitlist>builder()
-                .status("success")
-                .message("Waitlist entry added successfully!")
-                .data(waitlist)
-                .timestamp(LocalDateTime.now())
-                .errors(null)
-                .build();
+        return "Waitlist entry added successfully!";
     }
+
 }
