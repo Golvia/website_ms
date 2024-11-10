@@ -2,6 +2,7 @@ package com.golvia_waitlist.demo.controller;
 
 
 import com.golvia_waitlist.demo.entity.Waitlist;
+import com.golvia_waitlist.demo.response.ResponseDto;
 import com.golvia_waitlist.demo.service.WaitlistService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +16,7 @@ public class WaitlistController {
     private final WaitlistService waitlistService;
 
     @PostMapping("/waitList")
-    public String Waitlist(@RequestBody Waitlist waitlist) {
+    public ResponseDto<Waitlist> Waitlist(@RequestBody Waitlist waitlist) {
         return waitlistService.waitlist(waitlist);
 
     }
